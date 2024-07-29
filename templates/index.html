@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,16 +22,17 @@
                 <input type="text" id="genre" name="genre" placeholder="Give Genre" required>
             </div>
             <div class="upload-section">
-                <label for="word-limit" class="upload">Word Limit:</label>
-                <input type="number" id="word-limit" name="word-limit" placeholder="Enter Word Limit" required>
+                <label for="word_limit" class="upload">Word Limit:</label>
+                <input type="number" id="word_limit" name="word_limit" placeholder="Enter Word Limit" required>
             </div>
             <button type="submit" class="submit-button">Result</button>
         </form>
-        <div class="output-section">
-            <h2>Story:</h2>
-            <p>{{ output_text }}</p>
+        {% if output_text %}
+        <div id="result" class="result">
+            <h2>{{ output_text }}</h2>
         </div>
         {% endif %}
     </div>
 </body>
+
 </html>
