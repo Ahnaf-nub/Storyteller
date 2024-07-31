@@ -43,7 +43,7 @@ label {
     color: #9cdcfe;
 }
 
-input[type="text"], input[type="number"] {
+input[type="number"] {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;

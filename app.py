@@ -8,6 +8,7 @@ import cv2
 from deepface import DeepFace as df
 import time
 from fastapi.responses import StreamingResponse
+
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 app = FastAPI()
 
@@ -17,20 +18,21 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 templates = Jinja2Templates(directory="templates")
 
 def detect_face(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=7, minSize=(30, 30))
+    dominant_emotion = "No face detected"
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
         try:
-            analyze = df.analyze(frame, actions = ['emotion'])
-            cv2.putText(frame, analyze[0]['dominant_emotion'],  (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+            analyze = df.analyze(frame, actions=['emotion'])
+            dominant_emotion = analyze[0]['dominant_emotion']
         except:
-            cv2.putText(frame, "No face detected", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-    return frame
+            pass
+        cv2.putText(frame, f"Emotion: {dominant_emotion}", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+    return frame, dominant_emotion
 
 def gen_frames():
     while True:
@@ -38,7 +40,7 @@ def gen_frames():
         if not success:
             break
         else:
-            frame_with_faces = detect_face(frame)
+            frame_with_faces, _ = detect_face(frame)
             _, buffer = cv2.imencode('.jpg', frame_with_faces)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
@@ -49,16 +51,20 @@ def gen_frames():
 async def read_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "output_text": ""})
 
-
 @app.get('/video_feed')
 def video_feed():
     return StreamingResponse(gen_frames(), media_type='multipart/x-mixed-replace; boundary=frame')
 
-
 @app.post("/upload", response_class=HTMLResponse)
-async def generate_story(request: Request, topic: str = Form(...), genre: str = Form(...), word_limit: int = Form(...)):
+async def generate_story(request: Request, word_limit: int = Form(...)):
     try:
-        response = model.generate_content(f"Write a story about {topic} in {genre} within {word_limit} words.")
+        success, frame = cap.read()
+        if success:
+            _, emotion = detect_face(frame)
+        else:
+            emotion = "No emotion detected"
+
+        response = model.generate_content(f"Write a story within {word_limit} words. The story should improve my emotion : {emotion} better. As a example if im angry it should make me happy.")
         output_text = response.text
         return templates.TemplateResponse("index.html", {"request": request, "output_text": output_text})
     except Exception as e:
@@ -67,3 +73,8 @@ async def generate_story(request: Request, topic: str = Form(...), genre: str = 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
+
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+
+
