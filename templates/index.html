@@ -12,6 +12,8 @@
 <body>
     <div class="container">
         <h1>Storyteller</h1>
+        <h2>Live Video Feed</h1>
+        <img src="{{ url_for('video_feed') }}" alt="Live Video Feed">
         <form id="sauce-form" action="/upload" method="post" enctype="multipart/form-data">
             <div class="upload-section">
                 <label for="topic" class="upload">Topic:</label>

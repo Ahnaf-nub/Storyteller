@@ -1,0 +1,6 @@
+fastapi
+opencv-python
+deepface
+uvicorn
+numpy
+google-generativeai
