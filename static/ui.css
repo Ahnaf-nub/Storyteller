@@ -14,19 +14,48 @@ body {
     min-height: 100dvh;
 }
 
-.loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+.gfg { 
+    display: block; 
+    position: absolute; 
+    width: 10px; 
+    height: 10px; 
+    left: calc(50% - 1em); 
+    border-radius: 1em; 
+    transform-origin: 1em 2em; 
+    animation: rotate; 
+    animation-iteration-count: infinite; 
+    animation-duration: 2s; 
+} 
+
+@keyframes rotate { 
+    from { 
+        transform: rotateZ(0deg); 
+    } 
+    to { 
+        transform: rotateZ(360deg); 
+    } 
+} 
+.g1 { 
+    animation-delay: 0.1s; 
+    background-color: #114ab4cc; 
+
+} 
+.g2 { 
+    animation-delay: 0.2s; 
+    background-color: #114ab4cc; 
+} 
+.g3 { 
+    animation-delay: 0.3s; 
+    background-color: #385894; 
+} 
+.g4 { 
+    animation-delay: 0.4s; 
+    background-color: #445980cc; 
+} 
+.g5 { 
+    animation-delay: 0.5s; 
+    background-color: #D5F5E3; 
+} 
 
 header h1 {
     margin: 0;
@@ -55,7 +84,7 @@ input[type="number"] {
 }
 
 .submit-button {
-    background-color: #007acc;
+    background-color: #007acce1;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -65,13 +94,12 @@ input[type="number"] {
 }
 
 .submit-button:hover {
-    background-color: #005a9e;
+    background-color: #005a9ee7;
 }
-
-.result {
+#result {
     text-align: center;
-    justify-content: center;
-    align-items: center;
+}
+.result {
     margin-top: 20px;
 }
 

@@ -62,18 +62,15 @@ async def generate_story(request: Request, word_limit: int = Form(...)):
         if success:
             _, emotion = detect_face(frame)
         else:
-            emotion = "No emotion detected"
+            emotion = "No face detected"
 
-        response = model.generate_content(f"Write a story within {word_limit} words. The story should improve my emotion : {emotion} better. As a example if im angry it should make me happy.")
+        response = model.generate_content(f"Write a story within {word_limit} words. The story should improve my emotion : {emotion} better. As a example if im angry it should make me happy. And if {emotion} is 'No face detected', return No face detected.")
         output_text = response.text
         return templates.TemplateResponse("index.html", {"request": request, "output_text": output_text})
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
-
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
 
