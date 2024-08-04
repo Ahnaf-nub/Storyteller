@@ -1,6 +1,5 @@
-fastapi
+streamlit
 opencv-python
 deepface
-uvicorn
 numpy
 google-generativeai
