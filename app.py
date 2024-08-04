@@ -48,5 +48,4 @@ if st.button("Start"):
                 st.write("Story: ", output_text)
         
         cap.release()
-
-cv2.destroyAllWindows()
+        cv2.destroyAllWindows()
