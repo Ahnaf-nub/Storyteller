@@ -1,5 +1,5 @@
-import cv2
 import streamlit as st
+import cv2
 import google.generativeai as genai
 from deepface import DeepFace as df
 
