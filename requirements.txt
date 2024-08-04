@@ -1,7 +1,7 @@
 streamlit
+numpy
 opencv-python-headless
-deepface
 tensorflow
 tf-keras
-numpy
+deepface
 google-generativeai
