@@ -2,13 +2,13 @@ import streamlit as st
 import cv2
 import google.generativeai as genai
 from deepface import DeepFace as df
+import os 
 
 GOOGLE_API_KEY = st.secrets['API_KEY']
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
-
-# Load the face cascade
-faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+face_cascade_path = os.path.join("haarcascade_frontalface_default.xml")
+faceCascade = cv2.CascadeClassifier(face_cascade_path)
 
 # Function to detect face and emotion
 def detect_face(frame):
