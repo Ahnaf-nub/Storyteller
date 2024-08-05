@@ -7,7 +7,7 @@ Storytellercv is a real-time facial emotion detection and story generation appli
 - Integration with Google Generative AI model Gemini for story generation.
 
 ## Usage
-- Open https://storytellercv.streamlit.app in your web browser.
+- Open https://storytellercv2.streamlit.app in your web browser.
 - Enter the desired word limit for the generated story.
 - Click on the "Start" button to begin the webcam feed.
 - The app will detect your dominant emotion in real-time and display it on the screen.
