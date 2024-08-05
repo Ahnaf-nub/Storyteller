@@ -1,6 +1,6 @@
-import cv2
 import streamlit as st
 from streamlit_webrtc import VideoProcessorBase, RTCConfiguration, webrtc_streamer, WebRtcMode
+import cv2
 import google.generativeai as genai
 from deepface import DeepFace as df
 
