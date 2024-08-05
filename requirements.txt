@@ -1,7 +1,7 @@
 streamlit
 streamlit-webrtc
 numpy
-opencv-python
+opencv-python==4.1.2.30
 tensorflow
 tf-keras
 deepface
