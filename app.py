@@ -25,7 +25,7 @@ class EmotionDetector(VideoProcessorBase):
 
     def detect_face(self, frame):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=7, minSize=(30, 30))
+        faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
         dominant_emotion = "No face detected"
         
         for (x, y, w, h) in faces:
