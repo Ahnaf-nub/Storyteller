@@ -14,6 +14,7 @@ face_cascade_path = os.path.join("haarcascade_frontalface_default.xml")
 faceCascade = cv2.CascadeClassifier(face_cascade_path)
 
 
+
 class EmotionDetector(VideoProcessorBase):
     def __init__(self):
         self.dominant_emotion = "No face detected"
