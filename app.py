@@ -13,6 +13,7 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 face_cascade_path = os.path.join("haarcascade_frontalface_default.xml")
 faceCascade = cv2.CascadeClassifier(face_cascade_path)
 
+
 class EmotionDetector(VideoProcessorBase):
     def __init__(self):
         self.dominant_emotion = "No face detected"
@@ -25,8 +26,8 @@ class EmotionDetector(VideoProcessorBase):
 
     def detect_face(self, frame):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-        #dominant_emotion = "No face detected"
+        faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=7, minSize=(30, 30))
+        dominant_emotion = "No face detected"
         
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
@@ -41,7 +42,7 @@ class EmotionDetector(VideoProcessorBase):
 # Streamlit UI
 st.markdown("<h1 style='text-align: center;'>Storytellercv</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Enter word limit</p>", unsafe_allow_html=True)
-word_limit = st.number_input("", min_value=30, value=100)
+word_limit = st.number_input("Word Limit", min_value=30, value=100, label_visibility="collapsed")
 
 RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
 
@@ -58,11 +59,10 @@ if webrtc_ctx.video_processor:
     dominant_emotion = emotion_detector.dominant_emotion
     
     if st.button("Generate Story"):
-        if dominant_emotion == "No face detected":
-            st.write("No face detected")
-        else:
+        if dominant_emotion != "No face detected":
             response = model.generate_content(f"Write a story within {word_limit} words. The story should be focused on emotional wellbeing and support. My emotion: {dominant_emotion}. For example, if I'm angry, it should make me happy.")
             output_text = response.text
             st.write("Emotion: ", dominant_emotion)
             st.write("Story: ", output_text)
-
+        else:
+            st.write("No face detected")
