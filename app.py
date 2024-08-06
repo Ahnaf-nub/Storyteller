@@ -26,7 +26,7 @@ class EmotionDetector(VideoProcessorBase):
     def detect_face(self, frame):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-        dominant_emotion = "No face detected"
+        #dominant_emotion = "No face detected"
         
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
@@ -58,11 +58,11 @@ if webrtc_ctx.video_processor:
     dominant_emotion = emotion_detector.dominant_emotion
     
     if st.button("Generate Story"):
-        if dominant_emotion != "No face detected":
+        if dominant_emotion == "No face detected":
+            st.write("No face detected")
+        else:
             response = model.generate_content(f"Write a story within {word_limit} words. The story should be focused on emotional wellbeing and support. My emotion: {dominant_emotion}. For example, if I'm angry, it should make me happy.")
             output_text = response.text
             st.write("Emotion: ", dominant_emotion)
             st.write("Story: ", output_text)
-        else:
-            st.write("No face detected")
 
