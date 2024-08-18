@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+}
+
+.container {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+}
+
+.gfg { 
+    display: block; 
+    position: absolute; 
+    width: 10px; 
+    height: 10px; 
+    left: calc(50% - 1em); 
+    border-radius: 1em; 
+    transform-origin: 1em 2em; 
+    animation: rotate; 
+    animation-iteration-count: infinite; 
+    animation-duration: 2s; 
+} 
+
+@keyframes rotate { 
+    from { 
+        transform: rotateZ(0deg); 
+    } 
+    to { 
+        transform: rotateZ(360deg); 
+    } 
+} 
+.g1 { 
+    animation-delay: 0.1s; 
+    background-color: #114ab4cc; 
+
+} 
+.g2 { 
+    animation-delay: 0.2s; 
+    background-color: #114ab4cc; 
+} 
+.g3 { 
+    animation-delay: 0.3s; 
+    background-color: #385894; 
+} 
+.g4 { 
+    animation-delay: 0.4s; 
+    background-color: #445980cc; 
+} 
+.g5 { 
+    animation-delay: 0.5s; 
+    background-color: #D5F5E3; 
+} 
+
+header h1 {
+    margin: 0;
+    color: #61dafb;
+}
+
+.form-section {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #9cdcfe;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #333;
+    background-color: #3c3c3c;
+    color: #d4d4d4;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.submit-button {
+    background-color: #007acce1;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px 10px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.submit-button:hover {
+    background-color: #005a9ee7;
+}
+#result {
+    text-align: center;
+}
+.result {
+    margin-top: 20px;
+}
